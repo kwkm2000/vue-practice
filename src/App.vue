@@ -12,50 +12,45 @@
   <p>task length {{ tasks.length }}</p>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script setup lang="ts">
+import { ref, Ref } from "vue";
 
 const items = [
   { id: 1, text: "task1", isDone: false },
   { id: 2, text: "task2", isDone: true },
 ];
 const tasks = ref(items);
-const text = ref("");
-const onSubmit = (e) => {
+const text: Ref<string> = ref("");
+const onSubmit = (e: Event) => {
   e.preventDefault();
 
   const newTask = {
     id: tasks.value.length + 1,
-    text,
+    text: text.value,
     isDone: false,
   };
 
   tasks.value.unshift(newTask);
 };
-const onInput = (e) => {
-  const newText = e.target.value;
+const onInput = (e: Event) => {
+  const newText = (e.target as HTMLInputElement).value;
 
   text.value = newText;
 };
-const onClick = (e, taskId) => {
+const onClick = (e: Event, taskId: number) => {
   e.preventDefault();
-  console.log(taskId);
   const filteredTasks = tasks.value.filter((task) => task.id !== taskId);
   tasks.value = filteredTasks;
 };
 </script>
 
 <style>
-* {
-  /* margin: 0; */
-  /* padding: 0; */
-}
 #app {
-  font-family: sans-serif;
-  text-align: left;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
   margin-top: 60px;
-}
-li {
-  list-style: none;
 }
 </style>
