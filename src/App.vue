@@ -12,7 +12,7 @@
   <p>task length {{ tasks.length }}</p>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 
 const items = [
@@ -46,16 +46,12 @@ const onClick = (e, taskId) => {
 </script>
 
 <style>
-* {
-  /* margin: 0; */
-  /* padding: 0; */
-}
 #app {
-  font-family: sans-serif;
-  text-align: left;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
   margin-top: 60px;
-}
-li {
-  list-style: none;
 }
 </style>
