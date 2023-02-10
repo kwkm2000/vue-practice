@@ -5,21 +5,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, defineEmits } from "vue";
 
+const emit = defineEmits<{
+  (event: "addTodo", text: string): void;
+}>();
 const text = ref("");
-
 const onSubmit = (e: Event) => {
   e.preventDefault();
 
-  const newTask = {
-    id: tasks.value.length + 1,
-    text: text.value,
-    isDone: false,
-  };
+  if (text.value === "") {
+    return;
+  }
 
-  tasks.value.unshift(newTask);
-  console.log("clear");
+  emit("addTodo", text.value);
   text.value = "";
 };
 const onInput = (e: Event) => {
