@@ -10,7 +10,6 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@januswel/object-utilities": "^1.0.1",
     "core-js": "^3.8.3",
     "uniqid": "^5.4.0",
     "vue": "^3.2.13",
