@@ -9,9 +9,9 @@
 import { ref, computed } from "vue";
 import NewTaskInput from "./components/NewTaskInput.vue";
 import TaskList from "./components/TaskList.vue";
-import uniqid from "uniqid";
+import { Todo, Todos } from "./domain/models";
 
-const items = [
+const items: Todos.Model = [
   { id: "asdf", text: "task1", isDone: false },
   { id: "sjjsjsjs", text: "task2", isDone: true },
 ];
@@ -20,26 +20,16 @@ const doneTasksLength = computed(
   () => tasks.value.filter((task) => task.isDone).length
 );
 const addTodo = (text: string) => {
-  const newTask = {
-    id: uniqid(),
-    text: text,
-    isDone: false,
-  };
+  const newTask: Todo.Model = Todo.factory({ text: text });
+  const todos = Todos.add(tasks.value, newTask);
 
-  tasks.value.unshift(newTask);
+  tasks.value = todos;
 };
 const deleteTodo = (id: string) => {
-  const filteredTasks = tasks.value.filter((task) => task.id !== id);
-  tasks.value = filteredTasks;
+  tasks.value = Todos.remove(tasks.value, id);
 };
 const changeTodo = (id: string) => {
-  const targetTask = tasks.value.find((task) => task.id === id);
-
-  if (!targetTask) {
-    return;
-  }
-
-  targetTask.isDone = !targetTask.isDone;
+  tasks.value = Todos.toggle(tasks.value, id);
 };
 </script>
 

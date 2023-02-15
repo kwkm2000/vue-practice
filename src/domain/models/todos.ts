@@ -1,7 +1,14 @@
 import { assert } from "../../lib/assert";
 import * as Todo from "./todo";
 
-type Model = Todo.Model[];
+export type Model = Todo.Model[];
+
+function replace(todos: Model, newTodo: Todo.Model): Model {
+  const index = todos.findIndex((todo) => todo.id === newTodo.id);
+  todos.splice(index, 1, newTodo);
+
+  return todos;
+}
 
 export function factory(newValues?: Todo.Values[]): Model {
   if (!newValues) {
@@ -30,7 +37,7 @@ export function toggle(todos: Model, id: string): Model {
   const targetTodo = todos.find((todo) => todo.id === id);
   assert(!!targetTodo);
 
-  return [...todos, Todo.toggle(targetTodo)];
+  return replace(todos, Todo.toggle(targetTodo));
 }
 
 // export function findByTitle(todos: Model, title: string): Todo.Model[] {
