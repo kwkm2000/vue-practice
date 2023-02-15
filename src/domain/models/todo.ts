@@ -12,8 +12,6 @@ export interface Values {
 }
 
 export function factory(todo: Values): Model {
-  assertIsDefined(todo.text);
-
   return {
     id: uniqid(),
     text: todo.text,
@@ -37,6 +35,6 @@ export function change(todo: Model, newValues: Values): Model {
 export function toggle(todo: Model): Model {
   return {
     ...todo,
-    isDone: !isDone,
+    isDone: !todo.isDone,
   };
 }
